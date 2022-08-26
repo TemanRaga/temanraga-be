@@ -3,10 +3,18 @@ services:
   temanraga:
     build: .
     ports:
-      - "80:8000"
+      - "8000:8000"
     restart: always
     volumes:
       - temanraga_be:/temanraga-be/media
+  nginx:
+    build: ./nginx
+    volumes:
+      - temanraga_be:/media
+    ports:
+      - 80:80
+    depends_on:
+      - temanraga
 
 volumes:
   temanraga_be:
