@@ -9,6 +9,7 @@ services:
       - temanraga_be:/temanraga-be/media
   nginx:
     build: ./nginx
+    restart: always
     volumes:
       - temanraga_be:/media
       - ./certbot/conf:/etc/letsencrypt
@@ -24,7 +25,6 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email agenganugrah@gmail.com -d temanraga.xyz --agree-tos
 
 volumes:
   temanraga_be:
