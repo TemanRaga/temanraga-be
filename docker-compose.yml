@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  gateway:
+    build: .
+    ports:
+      - "80:8000"
+    restart: always
