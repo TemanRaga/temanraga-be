@@ -62,14 +62,6 @@ class LoginSerializer(serializers.ModelSerializer):
         }
 
 class UserSerializer(serializers.ModelSerializer):
-    tokens = serializers.SerializerMethodField()
-    def get_tokens(self, obj):
-        user = User.objects.get(email=obj.email)
-
-        return {
-            'refresh': user.tokens()['refresh'],
-            'access': user.tokens()['access']
-        }
     class Meta:
         model = User
-        fields = ['email', 'name', 'is_completed', 'id', 'gender', 'address', 'tokens']
+        fields = ['email', 'name', 'id', 'gender']
