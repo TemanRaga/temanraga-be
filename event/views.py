@@ -9,8 +9,8 @@ from event.models import Event
 class EventListView(APIView):
     serializer_class = EventSerializers
     def get(self, request, format=None):
-        events = Event.objects.get()
-        return Response(events, status=status.HTTP_201_CREATED)
+        events = Event.objects.all()
+        return Response(events, status=status.HTTP_200_OK)
 
 
 
