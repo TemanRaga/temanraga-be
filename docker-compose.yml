@@ -1,7 +1,12 @@
 version: "3.8"
 services:
-  gateway:
+  temanraga:
     build: .
     ports:
       - "80:8000"
     restart: always
+    volumes:
+      - temanraga_be:/temanraga-be/media
+
+volumes:
+  temanraga_be:
