@@ -30,9 +30,6 @@ SECRET_KEY = 'django-insecure-1t)$*=q*y4f!_ph()u#p+$v%t$htm@6ic=1*efzj9l@c_7zpxm
 PRODUCTION = os.environ.get('PRODUCTION', False) == 'true'
 DEBUG = not PRODUCTION
 
-PRODUCTION = os.environ.get('PRODUCTION', False) == 'true'
-DEBUG = not PRODUCTION
-
 
 # Application definition
 
