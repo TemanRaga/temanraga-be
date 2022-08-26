@@ -119,8 +119,8 @@ REST_FRAMEWORK = {
 
 
 # JWT settings
-ACCESS_TOKEN_LIFETIME = os.environ.get('ACCESS_TOKEN', 30)
-REFRESH_TOKEN_LIFETIME = os.environ.get('REFRESH_TOKEN', 5)
+ACCESS_TOKEN_LIFETIME = int(os.environ.get('ACCESS_TOKEN', 30))
+REFRESH_TOKEN_LIFETIME = int(os.environ.get('REFRESH_TOKEN', 5))
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=ACCESS_TOKEN_LIFETIME),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=REFRESH_TOKEN_LIFETIME),
