@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set work directory
-WORKDIR /tokolawas_profile
+WORKDIR /temanraga-be
 
 # Install dependencies
 COPY ./requirements.txt .
