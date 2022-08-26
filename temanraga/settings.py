@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import datetime
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -30,6 +31,8 @@ SECRET_KEY = 'django-insecure-1t)$*=q*y4f!_ph()u#p+$v%t$htm@6ic=1*efzj9l@c_7zpxm
 PRODUCTION = os.environ.get('PRODUCTION', False) == 'true'
 DEBUG = not PRODUCTION
 
+PRODUCTION_ADDRESS = os.environ.get('PRODUCTION_ADDRESS', '*')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', PRODUCTION_ADDRESS]
 
 # Application definition
 
@@ -40,8 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third party
+    'rest_framework_simplejwt',
     'rest_framework',
     'corsheaders',
+
+    # local
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +108,29 @@ else:
         }
     }
 
+# Restframework settings
+REST_FRAMEWORK = {
+    "NON_FIELD_ERRORS_KEY": "error",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
 
+
+# JWT settings
+ACCESS_TOKEN_LIFETIME = os.environ.get('ACCESS_TOKEN', 30)
+REFRESH_TOKEN_LIFETIME = os.environ.get('REFRESH_TOKEN', 5)
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=ACCESS_TOKEN_LIFETIME),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=REFRESH_TOKEN_LIFETIME),
+}
+
+# CORS settings
+CORS_ORIGIN_ALLOW_ALL = True
+
+# User models
+AUTH_USER_MODEL = 'authentication.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -135,7 +166,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
