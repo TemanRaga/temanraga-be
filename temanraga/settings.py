@@ -51,6 +51,13 @@ INSTALLED_APPS = [
 
     # local
     'authentication',
+    # 'rest_framework_simplejwt',
+    # 'rest_framework',
+    # 'corsheaders',
+
+    # local
+    # 'authentication',
+    'event',
 ]
 
 MIDDLEWARE = [
