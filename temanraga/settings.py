@@ -116,6 +116,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
+    'DATE_FORMAT': '%d-%m-%Y',
+    'TIME_FORMAT': '%H:%M',
+    'TIME_INPUT_FORMATS': ['%H:%M',],
 }
 
 
@@ -157,7 +160,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
 
