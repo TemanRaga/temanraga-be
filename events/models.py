@@ -16,7 +16,7 @@ class Event(models.Model):
     date = models.DateField(_("Date"), default=datetime.date.today)
     start = models.TimeField(blank=True, null=True)
     finish = models.TimeField(blank=True, null=True)
-    gender = models.IntegerField(choices=GENDER_CHOICES, default=3)
+    gender = models.IntegerField(choices=GENDER_CHOICES, default=2)
     max_participants = models.IntegerField(default=0)
     num_participants = models.IntegerField(default=1)
 
