@@ -6,6 +6,7 @@ services:
       - "8000:8000"
     restart: always
     volumes:
+      - ./**/migrations:/temanraga-be/**/migrations
       - temanraga_be:/temanraga-be/media
   nginx:
     build: ./nginx
