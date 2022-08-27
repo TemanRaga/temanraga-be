@@ -6,9 +6,9 @@ services:
       - "8000:8000"
     restart: always
     volumes:
-      - ./authentication/migrations:/temanraga-be/authentication/migrations
-      - ./events/migrations:/temanraga-be/events/migrations
-      - ./profiles/migrations:/temanraga-be/profiles/migrations
+      - temanraga_be:/temanraga-be/authentication/migrations
+      - temanraga_be:/temanraga-be/events/migrations
+      - temanraga_be:/temanraga-be/profiles/migrations
       - temanraga_be:/temanraga-be/media
   nginx:
     build: ./nginx
