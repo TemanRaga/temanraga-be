@@ -15,11 +15,13 @@ class EventList(APIView):
 
     def get(self, request):
         if request.GET.get('q') == 'sort_desc':
-            events = Event.objects.all().order_by('-num_participants')
+            gender = request.GET.get('gender', None)
+            events = Event.objects.all().filter(gender=gender).order_by('-num_participants')
             serializer = EventSerializer(events, many=True, context= {'request': request})
             return Response({"message": "success", "data": serializer.data})
         else:
-            events = Event.objects.all()
+            gender = request.GET.get('gender', None)
+            events = Event.objects.all().filter(gender=gender)
             serializer = EventSerializer(events, many=True, context= {'request': request})
             return Response({"message": "success", "data": serializer.data})
 
