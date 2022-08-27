@@ -27,22 +27,25 @@ class EventList(APIView):
 
     def post(self, request, format=None):
         try:
-            description = request.data.get('description')
-            name = request.data.get('name')
-            location = request.data.get('location')
-            image = request.data.get('image')
-            date = request.data.get('date')
-            start = request.data.get('start')
-            finish = request.data.get('finish')
-            gender = request.data.get('gender')
-            max_participants = request.data.get('max_participants')
-            user = request.user
-            event = Event.objects.create(created_by=user, description=description, name=name, location=location, date=date, start=start, finish=finish, gender=gender, max_participants=max_participants, image=image)
-            event.participants.add(request.user)
-            serializer = EventSerializer(event, context= {'request': request})
-            return Response({"message": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
-        except:
-            return Response({"message": "errors", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                description = request.data.get('description')
+                name = request.data.get('name')
+                location = request.data.get('location')
+                image = request.data.get('image')
+                date = request.data.get('date')
+                start = request.data.get('start')
+                finish = request.data.get('finish')
+                gender = request.data.get('gender')
+                max_participants = request.data.get('max_participants')
+                user = request.user
+                event = Event.objects.create(created_by=user, description=description, name=name, location=location, date=date, start=start, finish=finish, gender=gender, max_participants=max_participants, image=image)
+                event.participants.add(request.user)
+                serializer = EventSerializer(event, context= {'request': request})
+                return Response({"message": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
+            except:
+                return Response({"message": "errors", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e: 
+            return Response({"message": "errors", "data": e}, status=status.HTTP_400_BAD_REQUEST)
 
 class EventDetail(APIView):
     permission_classes = (AllowAnyOnGet,)
