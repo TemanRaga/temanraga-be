@@ -37,6 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True, db_index=True)
+    is_verified = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -61,6 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         access["gender"] = self.gender
         access["address"] = self.address
         access["is_completed"] = self.is_completed
+        access["is_verified"] = self.is_verified
         return {
             'refresh': str(refresh),
             'access': str(access)

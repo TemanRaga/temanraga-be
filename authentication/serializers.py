@@ -8,7 +8,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     is_completed = serializers.BooleanField(read_only=True)
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password', 'gender', 'address', 'is_completed']
+        fields = ['id', 'name', 'email', 'password', 'gender', 'address', 'is_completed', 'is_verified']
 
     def create(self, validated_data):
         if len(validated_data) >= 5:
@@ -34,7 +34,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'tokens', 'name', 'gender', 'address', 'is_completed']
+        fields = ['id', 'email', 'password', 'tokens', 'name', 'gender', 'address', 'is_completed', 'is_verified']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -58,10 +58,11 @@ class LoginSerializer(serializers.ModelSerializer):
             'name' : user.name,
             'id': user.id,
             'address': user.address,
-            'gender': user.gender
+            'gender': user.gender,
+            'is_verified': user.is_verified
         }
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'name', 'id', 'gender']
+        fields = ['email', 'name', 'id', 'gender', 'is_verified']

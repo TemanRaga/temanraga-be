@@ -24,8 +24,13 @@ class EventList(APIView):
             name = request.data.get('name')
             location = request.data.get('location')
             image = request.data.get('image')
+            date = request.data.get('date')
+            start = request.data.get('start')
+            finish = request.data.get('finish')
+            gender = request.data.get('gender')
+            max_participants = request.data.get('max_participants')
             user = request.user
-            event = Event.objects.create(created_by=user, description=description, name=name, location=location, image=image)
+            event = Event.objects.create(created_by=user, description=description, name=name, location=location, date=date, start=start, finish=finish, gender=gender, max_participants=max_participants, image=image)
             event.participants.add(request.user)
             serializer = EventSerializer(event, context= {'request': request})
             return Response({"message": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
@@ -78,5 +83,7 @@ class EventDetail(APIView):
                 "status": 406,
                 "message": "user already registered for event"}, status=status.HTTP_406_NOT_ACCEPTABLE)
         event.participants.add(user)
+        event.num_participants += 1
+        event.save()
         serializer = EventSerializer(event, context= {'request': request})
         return Response({"message": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
