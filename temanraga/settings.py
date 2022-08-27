@@ -33,6 +33,7 @@ DEBUG = not PRODUCTION
 
 PRODUCTION_ADDRESS = os.environ.get('PRODUCTION_ADDRESS', '*')
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', PRODUCTION_ADDRESS]
+CSRF_TRUSTED_ORIGINS=['https://temanraga.xyz', 'http://temanraga.xyz']
 
 # Application definition
 
