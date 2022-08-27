@@ -1,4 +1,3 @@
-import imp
 from django.shortcuts import render
 from django.http.response import Http404
 from authentication.utils import AllowAnyOnGet
@@ -15,13 +14,19 @@ class EventList(APIView):
 
     def get(self, request):
         if request.GET.get('q') == 'sort_desc':
+            events = Event.objects.all()
             gender = request.GET.get('gender', None)
-            events = Event.objects.all().filter(gender=gender).order_by('-num_participants')
+            if gender:
+                events = events.filter(gender=gender).order_by('-num_participants')
+            else:
+                events = events.order_by('-num_participants')
             serializer = EventSerializer(events, many=True, context= {'request': request})
             return Response({"message": "success", "data": serializer.data})
         else:
+            events = Event.objects.all()
             gender = request.GET.get('gender', None)
-            events = Event.objects.all().filter(gender=gender)
+            if gender:
+                events = events.filter(gender=gender)
             serializer = EventSerializer(events, many=True, context= {'request': request})
             return Response({"message": "success", "data": serializer.data})
 
