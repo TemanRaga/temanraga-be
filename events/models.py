@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 
 # Create your models here.
 class Event(models.Model):
-    GENDER_CHOICES = [(0, 'Male'), (1, 'Female'), (3, 'All')]
+    GENDER_CHOICES = [(0, 'Male'), (1, 'Female'), (2, 'All')]
 
     description = models.TextField()
     name = models.CharField(max_length=255)
